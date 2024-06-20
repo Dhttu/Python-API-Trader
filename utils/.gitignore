@@ -3,3 +3,6 @@
 
 # Exclude all Excel files
 *.xlsx
+
+# Exclude all Word files
+*.docx

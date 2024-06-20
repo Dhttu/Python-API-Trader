@@ -91,6 +91,7 @@ def on_minute(strategies):
     for strategy_name, settings in strategies.items():
         if is_new_bar(settings['timeframe']):
             handle_new_bar(strategy_name)
+            # here is the issue: code doesn't check the magic number....
 
             for symbol in settings['symbols']:
                 if positions_total_for_symbol(symbol) > 0:

@@ -1,6 +1,66 @@
 import pandas as pd
 import os
 
+def get_timeframe_number(timeframe):
+    # Mapping for the "timeframe" values to their respective 1000's digit
+    timeframe_mapping = {
+        'M1': 1000,
+        'M5': 2000,
+        'M15': 3000,
+        'M30': 4000,
+        'H1': 5000,
+        'H4': 6000,
+        'D1': 7000,
+        'W1': 8000
+    }
+    
+    # Return the corresponding number for the given timeframe, will retrun 0 by default = error (need to check)
+    return timeframe_mapping.get(timeframe, 0)
+
+def get_currency_magic_number(currency_pair):
+    # Mapping for the "currency_pair" values to their respective magic numbers
+    currency_mapping = {
+        'AUDCAD': 1,
+        'AUDCHF': 2,
+        'AUDJPY': 3,
+        'AUDNZD': 4,
+        'AUDUSD': 5,
+        'CADCHF': 6,
+        'CADJPY': 7,
+        'CHFJPY': 8,
+        'EURAUD': 9,
+        'EURCAD': 10,
+        'EURCHF': 11,
+        'EURGBP': 12,
+        'EURJPY': 13,
+        'EURNZD': 14,
+        'EURUSD': 15,
+        'GBPAUD': 16,
+        'GBPCAD': 17,
+        'GBPCHF': 18,
+        'GBPJPY': 19,
+        'GBPNZD': 20,
+        'GBPUSD': 21,
+        'NZDCAD': 22,
+        'NZDCHF': 23,
+        'NZDJPY': 24,
+        'NZDUSD': 25,
+        'USDCAD': 26,
+        'USDCHF': 27,
+        'USDJPY': 28,
+        'GOLD': 40,
+        'SILVER': 41,
+        'SP500': 50,
+        'Oil': 60,
+        'Gas': 61
+    }
+    
+    # Return the corresponding magic number for the given currency pair, will retrun 0 by default = error (need to check)
+    return currency_mapping.get(currency_pair, 0)
+
+
+
+
 def str_to_bool(s):
     """
     Convert a value to boolean.
@@ -85,6 +145,7 @@ def load_config(filename='config.xlsx', sheet_name='config', strategies_run_mode
         # Construct the strategy configuration dictionary
         strategy_config = {
             'strategy_num': safe_int_convert(row['strategy_num']),
+            'magic_num': 50_000_000 + get_timeframe_number(row['strategy_num']), # base of magic number, still needs the currency for full number
             'strategy_status': row['strategy_status'],
             'symbols': symbols,
             'timeframe': row['timeframe'],

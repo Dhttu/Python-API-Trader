@@ -6,7 +6,7 @@
 
 
 
-from bar_management import on_minute
+from core.bar_management import on_minute
 import MetaTrader5 as mt5
 import schedule
 import time
